@@ -34,8 +34,8 @@ avg_vowels x = average (map (\y => length (filter is_vowel y)) (((map unpack) . 
                                     in (cast (sum l)) / (cast (length l))
 
 -- fifth thing
-satInBoth : (Eq t) => (t -> Bool) -> List t -> List t -> List t
-satInBoth f xs ys = filter f (intersect xs ys)
+sat_in_both : (Eq t) => (t -> Bool) -> List t -> List t -> List t
+sat_in_both f xs ys = filter f (intersect xs ys)
 
 -- sixth thing
 ack : Nat -> Nat -> Nat
@@ -44,8 +44,8 @@ ack (S k) Z = ack k 1
 ack (S k) (S j) = ack k (ack (S k) j)
 
 -- seventh thing
-least_greatest: List Integer -> Integer -> (Integer, Integer)
-least_greatest y x = min_max' y (x, x)
+least_greatest: Integer -> List Integer -> (Integer, Integer)
+least_greatest x y = min_max' y (x, x)
                         where
                           min_max': List Integer -> (Integer , Integer) -> (Integer , Integer)
                           min_max' [] x = x
