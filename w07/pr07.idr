@@ -75,6 +75,6 @@ unify_properties (fun :: funs) input = case fun input of
 
 compute_some_stuff: Nat -> Nat -> Nat -> Nat
 compute_some_stuff Z sum_so_far cur_num = sum_so_far
-compute_some_stuff (S k) sum_so_far cur_num = case unify_properties [ensure_odd, ensure_prime, ensure_palindrome] cur_num of
+compute_some_stuff (S k) sum_so_far cur_num = case unify_properties [ensure_odd, ensure_palindrome, ensure_prime] cur_num of
                                                 Just bla => compute_some_stuff k (sum_so_far + bla) (S cur_num)
                                                 Nothing => compute_some_stuff (S k) sum_so_far (S cur_num)
