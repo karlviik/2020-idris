@@ -38,7 +38,6 @@ plus_mono_left  :  LEQ m0 m1 -> LEQ (m0 + n) (m1 + n)
 plus_mono_left Z_leq = zero_plus_left
 plus_mono_left (S_leq x) = S_leq (plus_mono_left x)
 
-
 -- Task 6
 plus_mono  :  LEQ m0 m1 -> LEQ n0 n1 -> LEQ (m0 + n0) (m1 + n1)
 plus_mono x y = transitive (plus_mono_left x) (plus_mono_right y)
