@@ -179,3 +179,32 @@ implementation [ListMonoid] Monoid (List a) using ListSemigroup where
 consolidate : List (Maybe a) -> Maybe (List a)
 consolidate [] = pure []
 consolidate (x :: xs) = pure (++) <*> (pure (\y => [y]) <*> x) <*> consolidate xs
+
+
+
+-----------------------------------------------
+------------------- 11 & 12 -------------------
+-----------------------------------------------
+import Syntax.PreorderReasoning
+((m_s + n) + (m_s * n))
+  ={ sym plus_assoc }=
+(m_s + (n + (m_s * n)))
+  QED
+reverse_vect  :  Vect n a -> Vect n a
+reverse_vect [] = []
+reverse_vect (x :: xs) {n = (S n_s)} {a = a} = replace {P = \y => Vect y a} plus_one_is_succ ((reverse_vect xs) ++ [x])
+
+plus_one_is_succ : {a: Nat} -> a + 1 = S a
+plus_one_is_succ {a = Z} = Refl
+plus_one_is_succ {a = (S k)} = cong {f = S} plus_one_is_succ
+
+
+implementation [custom] DecEq a => DecEq (Vect n a)  where
+  decEq [] []  =  Yes Refl
+  decEq (x :: xs) (y :: ys)  =
+    case decEq x y of
+      Yes prf_h =>
+        case decEq xs ys of
+          Yes prf_t => Yes (cons_equal prf_h prf_t)
+          No contra => No (tails_differ contra)
+      No contra => No (heads_differ contra)
